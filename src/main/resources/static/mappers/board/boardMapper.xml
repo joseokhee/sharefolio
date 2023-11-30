@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.inhatc.mvc.mapper.BoardMapper">
+	
+	<insert id="registSubject">
+		INSERT INTO SAMPLE
+		(SUBJECT,GRADE,USE_YN,DESCRIPTION,REG_USER)
+		VALUES
+		(#{subject},#{grade},#{useYn},#{description},#{regUser})
+	</insert>
+	<select id="getPort" parameterType="String" resultType="String">
+		select portfolio_id from share where share_id=#{value}
+	</select>
+	<select id="getOneS" parameterType="String" resultType="Map">
+		SELECT a.share_id,a.title,a.coment,a.hashtag,b.title as head,b.content,b.tech,b.img_url,b.github_url,c.user_id,c.user_name
+		FROM share a,portfolio b,users c
+		where a.share_id=#{value} and a.portfolio_id=b.portfolio_id and b.user_id=c.user_id
+	</select>
+	<select id="getOneF" parameterType="String" resultType="Map">
+		SELECT a.share_id,a.title,a.coment,a.hashtag,c.user_name,c.user_id
+		FROM share a,portfolio b,users c
+		where a.share_id=#{value} and a.portfolio_id=b.portfolio_id and b.user_id=c.user_id
+	</select>
+	
+	<select id="getProject" parameterType="String" resultType="Map">
+		SELECT portfolio_id,title,content,img_url,tech
+		FROM portfolio
+		WHERE user_id=#{value}
+	
+	</select>
+	
+	<select id="getList" parameterType="String" resultType="Map">
+		SELECT share_id,title,coment,hashtag
+		FROM share 
+		
+		
+	</select>
+	<insert id="registShare">
+		INSERT INTO SHARE
+		(TITLE,COMENT,HASHTAG,PORTFOLIO_ID )
+		VALUES
+		(#{title},#{coment},#{hashtag},#{portfolio_id})
+	</insert>
+	<update id="updateShare" parameterType="Map">
+		UPDATE SHARE
+		SET
+			TITLE=#{title},
+			COMENT=#{coment},
+			HASHTAG=#{hashtag},
+			PORTFOLIO_ID=#{portfolio_id}
+		WHERE SHARE_ID=#{share_id}
+	
+	</update>
+	<delete id="deleteShare" parameterType="String">
+		DELETE FROM SHARE
+		WHERE share_id = #{value}
+	</delete>
+	
+</mapper>

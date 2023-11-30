@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.inhatc.mvc.mapper.RestApiMapper">
+
+		<insert id="createSamples" parameterType="kr.ac.inhatc.mvc.dto.sampleDto">
+		insert into sample (subject,grade,use_yn,description,reg_user)
+		values (#{subject},#{grade},#{useYn},#{description},#{regUser})
+		</insert>
+		<update id="updateSamples" parameterType="kr.ac.inhatc.mvc.dto.sampleDto">
+			update sample
+			set
+				subject=#{subject},
+				grade=#{grade},
+				use_yn=#{useYn},
+				description=#{description},
+				reg_user=#{regUser}
+			where
+				id=#{id}
+		</update>
+		<delete id="deleteSamples" parameterType="kr.ac.inhatc.mvc.dto.sampleDto">
+			DELETE FROM SAMPLE WHERE id=#{d
+		</delete>
+		
+		<select id="readSamples" parameterType="kr.ac.inhatc.mvc.dto.sampleDto" resultType="kr.ac.inhatc.mvc.dto.sampleDto">
+			SELECT
+					*
+			FROM SAMPLE
+			WHERE 1=1
+			<if test="id != null and id != ''">
+				AND id=#{id}
+			</if>
+		</select>
+</mapper>
